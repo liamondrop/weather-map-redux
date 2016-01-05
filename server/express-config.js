@@ -18,12 +18,12 @@ module.exports = function expressConfig() {
   var compiler;
 
   var info = `
-/**
- * Name: ${_package.description}
- * Version: ${_package.version}
- * Environment: ${app.get('env')}
- * Port: %s
- **/
+*
+* Name: ${_package.description}
+* Version: ${_package.version}
+* Environment: ${app.get('env')}
+* Port: %s
+*
 `;
 
   // hot loading development server

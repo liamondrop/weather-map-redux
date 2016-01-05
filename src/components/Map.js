@@ -24,23 +24,6 @@ export default class Map extends React.Component {
     // }
   }
 
-  checkIfDataRequested() {
-    // Stop extra requests being sent
-    if (this.state.gettingData) {
-      // request.abort();
-      this.setState({gettingData: false});
-    }
-    this.getCoords();
-  }
-
-  // get current view boundary coordinates
-  getCoords() {
-    var bounds = this.props.map.getBounds();
-    var NE = bounds.getNorthEast();
-    var SW = bounds.getSouthWest();
-    getWeather(NE.lat(), NE.lng(), SW.lat(), SW.lng());
-  }
-
   // Make the weather request
   getWeather(northLat, eastLng, southLat, westLng) {
     this.setState({gettingData: true})

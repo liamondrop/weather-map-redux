@@ -13,4 +13,3 @@ export const PENCIL = '&#xf040;';
 export const PHONE = '&#xf095;';
 export const PHONE_SQUARE = '&#xf098;';
 export const TWITTER = '&#xf099;';
-
