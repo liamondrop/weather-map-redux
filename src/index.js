@@ -6,7 +6,6 @@ import {Provider} from 'react-redux';
 import Main from './pages/Main';
 import configureStore from './configureStore';
 
-console.log(configureStore())
 
 ReactDOM.render(
   <Provider store={configureStore()}>
