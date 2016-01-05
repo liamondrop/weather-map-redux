@@ -1,11 +1,11 @@
 {
-  "name": "weather-app",
+  "name": "weather-map-redux",
   "version": "0.0.1",
-  "description": "Weather App",
+  "description": "Weather Map Redux",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/liamondrop/weather-app.git"
+    "url": "git://github.com/liamondrop/weather-map-redux.git"
   },
   "engines": {
     "node": "5.0.0"
