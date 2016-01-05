@@ -2,9 +2,8 @@ import React from 'react';
 import local from 'local-links';
 import {bindAll} from 'underscore';
 import {connect} from 'react-redux';
-import {deriveCurrentState} from '../lib';
 import GoogleMap from '../components/Map';
-import {initGoogleMaps} from '../actions'
+import {initGoogleMaps} from '../actions';
 
 class Main extends React.Component {
   constructor() {
@@ -23,16 +22,15 @@ class Main extends React.Component {
     const pathName = local.pathname(e);
     if (pathName) {
       e.preventDefault();
-      console.log(pathName)
+      console.log(pathName);
       // app.router.navigate(pathName);
     }
   }
 
   render() {
-    console.log('RENDER', this.props)
     return (
       <div className="base" onClick={this._onClick}>
-        <GoogleMap {...this.state}/>
+        <GoogleMap {...this.props}/>
       </div>
     );
   }
