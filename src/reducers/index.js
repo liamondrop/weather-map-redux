@@ -1,26 +1,37 @@
 import {combineReducers} from 'redux';
 import {actions} from '../constants'
 
-function selectedReddit(state='reactjs', action) {
+function map(state={}, action) {
   switch (action.type) {
-    case SELECT_REDDIT:
-      return action.reddit
+    case actions.INITIATE_MAP_CANVAS:
+      return action.map
     default:
       return state
   }
 }
 
-function google(state={}, action) {
+export default function mapsApi(state={}, action) {
   switch (action.type) {
     case actions.LOAD_GOOGLE_MAPS:
-      return action.google
+      return action.mapsApi
+    default:
+      return state
+  }
+}
+
+function listening(state=false, action) {
+  switch (action.type) {
+    case actions.BIND_MAP_EVENTS:
+      return action.listening
     default:
       return state
   }
 }
 
 const rootReducer = combineReducers({
-  google
-})
+  map,
+  mapsApi,
+  listening
+});
 
 export default rootReducer
