@@ -9,7 +9,6 @@ export default class Map extends React.Component {
       gettingData: false
     };
     this.request = new XMLHttpRequest();
-    bindAll(this, 'checkIfDataRequested');
   }
 
   componentDidMount() {
