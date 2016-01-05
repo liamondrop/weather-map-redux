@@ -1,13 +1,11 @@
 /* eslint no-console: 0, no-unused-vars: 0 */
 
-var app = configureExpress = require('./express-config')();
+var app = require('./express-config')();
 var port = process.env.PORT || '3000';
 var server;
 
 app.get('/*', function routeHandler(req, res, next) {
-  res.render('Root', {
-    title: 'Welcome'
-  });
+  res.render('Root');
 });
 
 app.use(function logErrors(err, req, res, next) {
