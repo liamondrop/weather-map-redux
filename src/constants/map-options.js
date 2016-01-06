@@ -1,5 +1,6 @@
-export default {
-  elementId: 'map-canvas',
+export const OWM_API_BASE = 'http://api.openweathermap.org/data/2.5';
+export const ELEMENT = 'map-canvas';
+export const OPTIONS = {
   center: {
     lat: 37.1,
     lng: -95.7
