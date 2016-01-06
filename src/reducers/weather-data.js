@@ -1,22 +1,13 @@
-import {actions} from '../constants';
+import * as actions from '../constants/action-types';
 
-// export function map(state={}, action) {
-//   switch (action.type) {
-//     case actions.INITIATE_MAP_CANVAS:
-//       return action.map
-//     default:
-//       return state
-//   }
-// }
-
-// export function mapsApi(state={}, action) {
-//   switch (action.type) {
-//     case actions.LOAD_GOOGLE_MAPS:
-//       return action.mapsApi
-//     default:
-//       return state
-//   }
-// }
+export function geoJSON(state={features: []}, action) {
+  switch (action.type) {
+    case actions.WEATHER_DATA_RECEIVED:
+      return action.geoJSON
+    default:
+      return state
+  }
+}
 
 export function requestingData(state=false, action) {
   switch (action.type) {
