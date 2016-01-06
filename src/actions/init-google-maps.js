@@ -20,7 +20,7 @@ function bindToDomNode(mapsApi) {
     const {listening} = getState();
     if (!listening) {
       const map = new mapsApi.Map(
-        document.getElementById(MAP_OPTIONS.elementId), MAP_OPTIONS);
+        document.getElementById(mapOpts.ELEMENT), mapOpts.OPTIONS);
       dispatch(addEventListener(mapsApi, map));
       dispatch({
         type: actions.INITIATE_MAP_CANVAS,
