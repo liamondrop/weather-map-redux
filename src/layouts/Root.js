@@ -13,6 +13,7 @@ export default function Root(props) {
       </head>
       <body>
         <div id="root"/>
+        <script dangerouslySetInnerHTML={{__html: `OWM_APP_ID="${process.env.OWM_APP_ID}";`}}/>
         <script src={`/assets/bundle.js?${props.version}`} async/>
       </body>
     </html>
