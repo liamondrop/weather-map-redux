@@ -3,7 +3,7 @@ import local from 'local-links';
 import {bindAll} from 'underscore';
 import {connect} from 'react-redux';
 import GoogleMap from '../components/Map';
-import {initGoogleMaps} from '../actions';
+import initGoogleMaps from '../actions/init-google-maps';
 
 class Main extends React.Component {
   constructor() {

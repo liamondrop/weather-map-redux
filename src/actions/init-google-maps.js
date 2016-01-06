@@ -1,12 +1,15 @@
 import {isEmpty} from 'underscore';
 import GoogleMapsLoader from 'google-maps';
 import updateMapBounds from './update-map-bounds';
-import {actions, MAP_OPTIONS} from '../constants';
+import requestWeatherData from './request-weather-data';
+import * as actions from '../constants/action-types';
+import * as mapOpts from '../constants/map-options';
 
 function addEventListener(mapsApi, map) {
   return (dispatch) => {
     mapsApi.event.addListener(map, 'idle', () => {
       dispatch(updateMapBounds());
+      dispatch(requestWeatherData());
     });
     dispatch({type: actions.BIND_MAP_EVENTS});
   };

@@ -1,4 +1,4 @@
-import {actions} from '../constants';
+import * as actions from '../constants/action-types';
 
 export function map(state={}, action) {
   switch (action.type) {

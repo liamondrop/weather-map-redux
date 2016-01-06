@@ -1,5 +1,5 @@
 import {isEmpty} from 'underscore';
-import {actions} from '../constants';
+import * as actions from '../constants/action-types';
 
 function setMapBounds(northLat, eastLng, southLat, westLng) {
   return {
