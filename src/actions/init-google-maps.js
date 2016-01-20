@@ -1,31 +1,36 @@
 import {isEmpty} from 'underscore';
-import GoogleMapsLoader from 'google-maps';
+import googleMapsLoader from '../lib/google-maps-loader';
 import updateMapBounds from './update-map-bounds';
 import requestWeatherData from './request-weather-data';
 import initAutocompleteService from './init-autocomplete-service';
+import initInfoWindow from './init-info-window';
 import * as actions from '../constants/action-types';
 import * as mapOpts from '../constants/map-options';
 
-function addEventListener(mapsApi, map) {
-  return (dispatch) => {
+function addMapEventListener() {
+  return (dispatch, getState) => {
+    const {map, mapsApi} = getState();
     mapsApi.event.addListener(map, 'idle', () => {
+      dispatch({type: actions.ADD_MAPS_EVENT_LISTENER});
       dispatch(updateMapBounds());
       dispatch(requestWeatherData());
     });
-    dispatch({type: actions.BIND_MAP_EVENTS});
   };
 }
 
-function bindToDomNode(mapsApi) {
+function bindToDomNode() {
   return (dispatch, getState) => {
-    const {listening} = getState();
+    const {listening, mapsApi} = getState();
     if (!listening) {
-      const map = new mapsApi.Map(
-        document.getElementById(mapOpts.ELEMENT), mapOpts.OPTIONS);
-      dispatch(addEventListener(mapsApi, map));
       dispatch({
         type: actions.INITIATE_MAP_CANVAS,
-        map
+        map: new mapsApi.Map(
+          document.getElementById(mapOpts.MAP_ELEMENT),
+          mapOpts.OPTIONS)
+      });
+      dispatch({
+        type: actions.INITIATE_GEOCODER,
+        geocoder: new mapsApi.Geocoder
       });
       dispatch(initAutocompleteService(mapsApi));
     }
@@ -34,14 +39,18 @@ function bindToDomNode(mapsApi) {
 
 function loadMaps() {
   return (dispatch) => {
-    GoogleMapsLoader.LIBRARIES = ['places', 'geometry'];
-    GoogleMapsLoader.load((google) => {
-      const mapsApi = google.maps;
-      dispatch(bindToDomNode(mapsApi));
-      dispatch({
-        type: actions.LOAD_GOOGLE_MAPS,
-        mapsApi
-      });
+    googleMapsLoader.LIBRARIES = ['places'];
+    googleMapsLoader.load((google) => {
+      if (!isEmpty(google) && google.maps) {
+        const mapsApi = google.maps;
+        dispatch({
+          type: actions.LOAD_GOOGLE_MAPS,
+          mapsApi
+        });
+        dispatch(bindToDomNode());
+        dispatch(addMapEventListener());
+        dispatch(initInfoWindow());
+      }
     });
   };
 }
