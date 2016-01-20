@@ -19,3 +19,14 @@ export function autocomplete(state={}, action) {
       return state;
   }
 }
+
+export function placeName(state=null, action) {
+  switch (action.type) {
+    case actions.SET_FORMATTED_PLACE_NAME:
+      return action.name;
+    case actions.UNSET_FORMATTED_PLACE_NAME:
+      return null;
+    default:
+      return state;
+  }
+}
