@@ -30,9 +30,9 @@ function formatResponse(responseText='{}') {
             properties: {
               city: item.name,
               weather: item.weather[0].main,
-              temperature: item.main.temp,
-              min: item.main.temp_min,
-              max: item.main.temp_max,
+              temperature: Math.round(item.main.temp),
+              high: Math.round(item.main.temp_min),
+              low: Math.round(item.main.temp_max),
               humidity: item.main.humidity,
               pressure: item.main.pressure,
               windSpeed: item.wind.speed,
