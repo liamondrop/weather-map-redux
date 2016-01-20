@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {createHistory, useQueries} from 'history';
 import Autocomplete from '../components/Autocomplete';
 import initGoogleMaps from '../actions/init-google-maps';
+import setFormattedPlaceName from '../actions/set-formatted-place-name';
 import * as autocompletePredictions from '../actions/update-autocomplete-predictions';
 
 const history = useQueries(createHistory)();
@@ -37,7 +38,7 @@ class Main extends React.Component {
   }
 
   _onHistoryChange(location) {
-    const {geocoder, map, mapsApi} = this.props;
+    const {geocoder, map, mapsApi, dispatch} = this.props;
     const placeId = location.query.place;
     if (placeId) {
       geocoder.geocode({placeId}, (results, status) => {
@@ -47,6 +48,7 @@ class Main extends React.Component {
             map.setZoom(10);
             map.setCenter(place.geometry.location);
           }
+          dispatch(setFormattedPlaceName(place.formatted_address));
         }
       });
     }
