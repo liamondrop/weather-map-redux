@@ -1,0 +1,15 @@
+.info-window {
+  width: 200px;
+  padding: 15px;
+
+  .temp {
+    small {
+      font-size: 50%;
+      vertical-align: top;
+    }
+  }
+
+  .temp-current {
+    font-size: 30px;
+  }
+}
