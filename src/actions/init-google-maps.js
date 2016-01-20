@@ -2,6 +2,7 @@ import {isEmpty} from 'underscore';
 import GoogleMapsLoader from 'google-maps';
 import updateMapBounds from './update-map-bounds';
 import requestWeatherData from './request-weather-data';
+import initAutocompleteService from './init-autocomplete-service';
 import * as actions from '../constants/action-types';
 import * as mapOpts from '../constants/map-options';
 
@@ -26,6 +27,7 @@ function bindToDomNode(mapsApi) {
         type: actions.INITIATE_MAP_CANVAS,
         map
       });
+      dispatch(initAutocompleteService(mapsApi));
     }
   };
 }

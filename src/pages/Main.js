@@ -1,14 +1,16 @@
 import React from 'react';
 import local from 'local-links';
-import {bindAll} from 'underscore';
+import {bindAll, debounce} from 'underscore';
 import {connect} from 'react-redux';
 import GoogleMap from '../components/Map';
+import Autocomplete from '../components/Autocomplete';
 import initGoogleMaps from '../actions/init-google-maps';
+import updateAutocompletePredictions from '../actions/update-autocomplete-predictions';
 
 class Main extends React.Component {
   constructor() {
     super();
-    bindAll(this, '_onClick');
+    bindAll(this, '_onClick', '_onSearch');
   }
 
   componentDidMount() {
@@ -27,17 +29,21 @@ class Main extends React.Component {
     }
   }
 
+  _onSearch(e) {
+    const {autocomplete, dispatch, mapsApi} = this.props;
+    autocomplete.getQueryPredictions({input: e.target.value},
+      updateAutocompletePredictions(mapsApi, dispatch));
+  }
+
   render() {
     return (
       <div className="base" onClick={this._onClick}>
         <GoogleMap {...this.props}/>
+        <Autocomplete {...this.props}
+          onSearch={debounce(this._onSearch, 100)}/>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return state;
-}
-
-export default connect(mapStateToProps)(Main);
+export default connect((state) => state)(Main);
