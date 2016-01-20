@@ -1,5 +1,6 @@
 export const OWM_API_BASE = 'http://api.openweathermap.org/data/2.5';
-export const ELEMENT = 'map-canvas';
+export const OWM_ICON_BASE = 'http://openweathermap.org/img/w';
+export const MAP_ELEMENT = 'map-canvas';
 export const OPTIONS = {
   center: {
     lat: 37.1,

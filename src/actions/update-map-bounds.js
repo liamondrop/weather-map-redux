@@ -3,7 +3,7 @@ import * as actions from '../constants/action-types';
 
 function setMapBounds(northLat, eastLng, southLat, westLng) {
   return {
-    type: actions.MAP_BOUNDS_UPDATE,
+    type: actions.UPDATE_MAP_BOUNDS,
     mapBounds: {
       northLat, eastLng, southLat, westLng
     }
