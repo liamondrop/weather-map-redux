@@ -20,8 +20,17 @@ export function mapsApi(state={}, action) {
 
 export function mapBounds(state={}, action) {
   switch (action.type) {
-    case actions.MAP_BOUNDS_UPDATE:
+    case actions.UPDATE_MAP_BOUNDS:
       return action.mapBounds;
+    default:
+      return state;
+  }
+}
+
+export function geocoder(state={}, action) {
+  switch (action.type) {
+    case actions.INITIATE_GEOCODER:
+      return action.geocoder;
     default:
       return state;
   }
@@ -29,7 +38,7 @@ export function mapBounds(state={}, action) {
 
 export function listening(state=false, action) {
   switch (action.type) {
-    case actions.BIND_MAP_EVENTS:
+    case actions.ADD_MAPS_EVENT_LISTENER:
       return true;
     default:
       return state;
