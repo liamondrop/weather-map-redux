@@ -4,26 +4,21 @@ import * as mapOpts from '../constants/map-options';
 
 const xhr = new XMLHttpRequest();
 
-function _onXHRLoad(dispatch) {
-  return function handleResponse() {
-    dispatch(clearDataLayer());
-    dispatch(formatResponse(xhr.responseText));
-    dispatch(drawIcons());
-  }
-}
 
 function clearDataLayer() {
   return (dispatch, getState) => {
     const {map} = getState();
-    map.data.forEach(function (feature) {
+    map.data.forEach((feature) => {
       map.data.remove(feature);
     });
     dispatch({type: actions.CLEAR_DATA_LAYER});
   };
 }
 
+// deserialize XHR response for use with
+// Google maps geoJSON
 function formatResponse(responseText='{}') {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     const data = JSON.parse(responseText);
     if (_.isArray(data.list)) {
       dispatch({
@@ -57,16 +52,24 @@ function formatResponse(responseText='{}') {
   };
 }
 
-function drawIcons(weather) {
+function drawIcons() {
   return (dispatch, getState) => {
-    const {map, geoJSON} = getState();
+    const {map, mapsApi, geoJSON} = getState();
     map.data.addGeoJson(geoJSON);
     map.data.setStyle((feature) => ({
       icon: {
         url: feature.getProperty('icon'),
-        anchor: new google.maps.Point(25, 25)
+        anchor: new mapsApi.Point(25, 25)
       }
     }));
+  };
+}
+
+function _onXHRLoad(dispatch) {
+  return function handleResponse() {
+    dispatch(clearDataLayer());
+    dispatch(formatResponse(xhr.responseText));
+    dispatch(drawIcons());
   };
 }
 
@@ -80,7 +83,7 @@ function getWeatherData() {
                         + `&units=imperial&APPID=${window.OWM_APP_ID}&bbox=`
                         + `${westLng},${northLat},` // left top
                         + `${eastLng},${southLat},` // right bottom
-                        + map.getZoom();              
+                        + map.getZoom();
       xhr.onload = _onXHRLoad(dispatch);
       xhr.open('get', requestUrl, true);
       xhr.send();

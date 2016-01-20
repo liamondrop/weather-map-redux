@@ -20,7 +20,7 @@ const loader = {
         }
       } else {
         loading = true;
-        window[WINDOW_CALLBACK_NAME] = function () {
+        window[WINDOW_CALLBACK_NAME] = function windowCallback() {
           loader.ready(fn);
         };
         loader.createLoader();

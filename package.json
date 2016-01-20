@@ -47,7 +47,7 @@
       ],
       "prefer-const": 0,
       "space-infix-ops": 0,
-      "react/prop-types": 1
+      "react/prop-types": 0
     }
   },
   "dependencies": {

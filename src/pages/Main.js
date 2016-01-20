@@ -1,5 +1,5 @@
 import React from 'react';
-import {bindAll, debounce, isEmpty} from 'underscore';
+import {bindAll, debounce} from 'underscore';
 import {connect} from 'react-redux';
 import {createHistory, useQueries} from 'history';
 import Autocomplete from '../components/Autocomplete';
@@ -14,6 +14,10 @@ class Main extends React.Component {
     bindAll(this, '_onHistoryChange', '_onSearch',
       '_onPredictionsReturn', '_onPredictionSelect');
     this.state = {unlisten: null};
+  }
+
+  componentDidMount() {
+    this.props.dispatch(initGoogleMaps());
   }
 
   componentWillReceiveProps() {
@@ -32,19 +36,16 @@ class Main extends React.Component {
     this.state.unlisten();
   }
 
-  componentDidMount() {
-    this.props.dispatch(initGoogleMaps());
-  }
-
   _onHistoryChange(location) {
-    const {dispatch, geocoder, map, mapsApi} = this.props;
+    const {geocoder, map, mapsApi} = this.props;
     const placeId = location.query.place;
     if (placeId) {
-      geocoder.geocode({placeId}, function(results, status) {
+      geocoder.geocode({placeId}, (results, status) => {
         if (status === mapsApi.GeocoderStatus.OK) {
-          if (results[0]) {
+          const place = results[0];
+          if (place) {
             map.setZoom(10);
-            map.setCenter(results[0].geometry.location);
+            map.setCenter(place.geometry.location);
           }
         }
       });
@@ -52,7 +53,7 @@ class Main extends React.Component {
   }
 
   _onSearch(e) {
-    const {autocomplete, dispatch, mapsApi} = this.props;
+    const {autocomplete, dispatch} = this.props;
     const {value} = e.target;
     if (value) {
       autocomplete.getQueryPredictions({input: value},
@@ -81,7 +82,8 @@ class Main extends React.Component {
         <div ref="map" id="map-canvas" style={{height: '100%'}}/>
         <Autocomplete {...this.props}
           onSearch={debounce(this._onSearch, 200)}
-          onPredictionSelect={this._onPredictionSelect}/>
+          onPredictionSelect={this._onPredictionSelect}
+        />
       </div>
     );
   }

@@ -28,12 +28,17 @@ function bindToDomNode() {
           document.getElementById(mapOpts.MAP_ELEMENT),
           mapOpts.OPTIONS)
       });
-      dispatch({
-        type: actions.INITIATE_GEOCODER,
-        geocoder: new mapsApi.Geocoder
-      });
-      dispatch(initAutocompleteService(mapsApi));
     }
+  };
+}
+
+function initGeocoder() {
+  return (dispatch, getState) => {
+    const {mapsApi} = getState();
+    dispatch({
+      type: actions.INITIATE_GEOCODER,
+      geocoder: new mapsApi.Geocoder
+    });
   };
 }
 
@@ -48,6 +53,8 @@ function loadMaps() {
           mapsApi
         });
         dispatch(bindToDomNode());
+        dispatch(initGeocoder());
+        dispatch(initAutocompleteService());
         dispatch(addMapEventListener());
         dispatch(initInfoWindow());
       }

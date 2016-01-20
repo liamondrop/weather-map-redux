@@ -10,11 +10,12 @@ export default class Autocomplete extends React.Component {
           <input id="autocomplete"
             type="text"
             className="form-control"
-            onKeyUp={this.props.onSearch}/>
+            onKeyUp={this.props.onSearch}
+          />
           <span className="input-group-addon">@</span>
         </div>
         <ul onClick={this.props.onPredictionSelect} className="dropdown-menu">
-          {predictions.map((p, index) => {
+          {map(predictions, (p, index) => {
             return (
               <li key={index}>
                 <a href={`/?place=${p.place_id}`}>{p.description}</a>
