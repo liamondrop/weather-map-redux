@@ -1,4 +1,4 @@
-# Weather App Redux
+# Weather Map Redux
 
 A mashup of the Google Maps API and Open Weather Maps data. The purpose of which is primarily to play with asynchronous Redux action creators.
 
