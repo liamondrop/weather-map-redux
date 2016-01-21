@@ -4,7 +4,7 @@ A mashup of the Google Maps API and Open Weather Maps data. The purpose of which
 
 ## First things first.
 
-You'll need to have a recent version of Node (ideally 5.+.+) and npm (3.+.+) installed.
+You'll need to have a recent version of Node (ideally 5+) and npm (3+) installed.
 
 From the command line, run `npm install` in the repository directory.
 
