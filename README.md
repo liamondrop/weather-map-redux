@@ -14,4 +14,6 @@ While that is running, hop on over to [http://openweathermap.org/appid](http://o
 OWM_APP_ID=<your_open_weather_map_api_key>
 ```
 
-Once npm has finished installing, run `npm start` and you should be good to go.
+## Running the server.
+
+Once npm has finished installing, run `npm start` and you should be good to go. By default, the site will be running on [localhost:3000](http://127.0.0.1:3000).
